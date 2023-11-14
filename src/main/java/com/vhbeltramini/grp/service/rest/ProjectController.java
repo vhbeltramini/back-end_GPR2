@@ -6,7 +6,10 @@ import com.vhbeltramini.grp.model.User;
 import com.vhbeltramini.grp.repository.ProjectItemsRepository;
 import com.vhbeltramini.grp.repository.ProjectRepository;
 import com.vhbeltramini.grp.repository.UserRepository;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.validation.Valid;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -49,8 +52,42 @@ public class ProjectController {
     }
 
     @GetMapping("/projects")
-    public List<Project> getAll(){
-        return repository.findAll();
+    public ResponseEntity<List<Project>> getProjects(@RequestParam(value = "coordenador", required = false) String coordenador,
+                                     @RequestParam(value = "projeto", required = false) String projeto,
+                                     @RequestParam(value = "empenho", required = false) String empenho,
+                                     @RequestParam(value = "exercicio", required = false) Integer exercicio,
+                                     @RequestParam(value = "situacao", required = false) String situacao){
+        Specification<Project> specification = Specification.where(null);
+
+        if (coordenador != null && !coordenador.isEmpty()) {
+            specification = specification.and((root, query, criteriaBuilder) -> {
+                Join<Project, User> relatedEntityJoin = root.join("user", JoinType.INNER);
+                return criteriaBuilder.like(relatedEntityJoin.get("firstName"), "%" + coordenador + "%");
+            });
+        }
+
+        if (projeto != null && !projeto.isEmpty()) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.like(root.get("projeto"), "%" + projeto + "%"));
+        }
+
+        if (exercicio != null) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("exercicio"), exercicio));
+        }
+
+        if (empenho != null && !empenho.isEmpty()) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("empenho"), empenho));
+        }
+
+        if (situacao != null && !situacao.isEmpty()) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("situacao"), situacao));
+        }
+
+
+        return ResponseEntity.ok(repository.findAll(specification));
     }
 
     @GetMapping(path= "/projects/{id}")
