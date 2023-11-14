@@ -54,7 +54,8 @@ public class ProjectController {
     @GetMapping("/projects")
     public ResponseEntity<List<Project>> getProjects(@RequestParam(value = "coordenador", required = false) String coordenador,
                                      @RequestParam(value = "projeto", required = false) String projeto,
-                                     @RequestParam(value = "empenho", required = false) String empenho,
+                                     @RequestParam(value = "anoFimEmpenho", required = false) String anoFimEmpenho,
+                                     @RequestParam(value = "anoFimEmpenho", required = false) String anoInicioEmpenho,
                                      @RequestParam(value = "exercicio", required = false) Integer exercicio,
                                      @RequestParam(value = "situacao", required = false) String situacao){
         Specification<Project> specification = Specification.where(null);
@@ -76,9 +77,14 @@ public class ProjectController {
                     criteriaBuilder.equal(root.get("exercicio"), exercicio));
         }
 
-        if (empenho != null && !empenho.isEmpty()) {
+        if (anoFimEmpenho != null && !anoFimEmpenho.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.equal(root.get("empenho"), empenho));
+                    criteriaBuilder.equal(root.get("anoFimEmpenho"), anoFimEmpenho));
+        }
+
+        if (anoInicioEmpenho != null && !anoInicioEmpenho.isEmpty()) {
+            specification = specification.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("anoInicioEmpenho"), anoInicioEmpenho));
         }
 
         if (situacao != null && !situacao.isEmpty()) {

@@ -23,13 +23,15 @@ public class Project {
     private Float valorTotal;
     private String situacao;
     private Integer exercicio;
-    private String empenho;
+    private Integer anoInicioEmpenho;
+
+    private Integer anoFimEmpenho;
     @OneToMany
     private List<ProjectItems> itens;
 
     public Project() {}
 
-    public Project(Integer id, String projeto, User coordenador, Float valorPrevisto, Float valorExecutado, Float valorSaldo, Float valorTotal, String situacao, Integer exercicio, String empenho, List<ProjectItems> itens) {
+    public Project(Integer id, String projeto, User coordenador, Float valorPrevisto, Float valorExecutado, Float valorSaldo, Float valorTotal, String situacao, Integer exercicio, Integer anoInicioEmpenho, Integer anoFimEmpenho, List<ProjectItems> itens) {
         this.id = id;
         this.projeto = projeto;
         this.coordenador = coordenador;
@@ -39,7 +41,7 @@ public class Project {
         this.valorTotal = valorTotal;
         this.situacao = situacao;
         this.exercicio = exercicio;
-        this.empenho = empenho;
+        this.anoInicioEmpenho = anoInicioEmpenho;
         this.itens = itens;
     }
 
@@ -115,12 +117,20 @@ public class Project {
         this.exercicio = exercicio;
     }
 
-    public String getEmpenho() {
-        return empenho;
+    public Integer getAnoInicioEmpenho() {
+        return anoInicioEmpenho;
     }
 
-    public void setEmpenho(String empenho) {
-        this.empenho = empenho;
+    public void setAnoInicioEmpenho(Integer empenho) {
+        this.anoInicioEmpenho = empenho;
+    }
+
+    public Integer getAnoFimEmpenho() {
+        return anoFimEmpenho;
+    }
+
+    public void setAnoFimEmpenho(Integer anoFimEmpenho) {
+        this.anoFimEmpenho = anoFimEmpenho;
     }
 
     public List<ProjectItems> getItens() {
