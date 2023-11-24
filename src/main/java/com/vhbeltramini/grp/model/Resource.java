@@ -1,5 +1,6 @@
 package com.vhbeltramini.grp.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,22 +18,20 @@ public class Resource {
     @Size(min=5, message="O nome deve ter pelo menos 5 caracteres")
     @NotBlank
     private String nome;
-    private String imagem;
     @Size(min=20, message="A descrição deve ter pelo menos 20 caracteres")
     @NotBlank
     private String descricao;
     private String especificoes;
-    @NotBlank
+    @Nullable
     private int quantidade;
     @NotBlank
     private Float valor;
 
     public Resource() {}
 
-    public Resource(Integer id, String nome, String imagem, String descricao, String especificoes, int quantidade, Float valor) {
-        this.id = id;
+    public Resource(String nome, String descricao, String especificoes, Integer quantidade, Float valor) {
+        super();
         this.nome = nome;
-        this.imagem = imagem;
         this.descricao = descricao;
         this.especificoes = especificoes;
         this.quantidade = quantidade;
@@ -55,14 +54,6 @@ public class Resource {
         this.nome = nome;
     }
 
-    public String getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -79,19 +70,19 @@ public class Resource {
         this.especificoes = especificoes;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public Float getValor() {
         return valor;
     }
 
     public void setValor(Float valor) {
         this.valor = valor;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }

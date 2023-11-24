@@ -1,5 +1,6 @@
 package com.vhbeltramini.grp.model;
 
+import com.vhbeltramini.grp.model.enums.ProjectStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,27 +23,32 @@ public class Project {
     private Float valorSaldo;
     private Float valorTotal;
     private String situacao;
+    private String observacao;
     private Integer exercicio;
     private Integer anoInicioEmpenho;
-
     private Integer anoFimEmpenho;
     @OneToMany
     private List<ProjectItems> itens;
+    @OneToMany
+    private List<Resource> resources;
 
     public Project() {}
 
-    public Project(Integer id, String projeto, User coordenador, Float valorPrevisto, Float valorExecutado, Float valorSaldo, Float valorTotal, String situacao, Integer exercicio, Integer anoInicioEmpenho, Integer anoFimEmpenho, List<ProjectItems> itens) {
-        this.id = id;
+    public Project(String projeto, User coordenador, Float valorPrevisto, Float valorExecutado, Float valorSaldo, Float valorTotal, ProjectStatus situacao, Integer exercicio, Integer anoInicioEmpenho, Integer anoFimEmpenho, String observacao, List<ProjectItems> itens, List<Resource> resources) {
+        super();
         this.projeto = projeto;
         this.coordenador = coordenador;
         this.valorPrevisto = valorPrevisto;
         this.valorExecutado = valorExecutado;
         this.valorSaldo = valorSaldo;
         this.valorTotal = valorTotal;
-        this.situacao = situacao;
+        this.situacao = situacao.toString();
         this.exercicio = exercicio;
         this.anoInicioEmpenho = anoInicioEmpenho;
+        this.anoFimEmpenho = anoFimEmpenho;
+        this.observacao = observacao;
         this.itens = itens;
+        this.resources = resources;
     }
 
     public void setId(Integer id) {
@@ -139,5 +145,21 @@ public class Project {
 
     public void setItens(List<ProjectItems> itens) {
         this.itens = itens;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> recursos) {
+        this.resources = recursos;
     }
 }

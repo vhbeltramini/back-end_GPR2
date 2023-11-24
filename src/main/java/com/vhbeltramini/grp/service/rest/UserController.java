@@ -1,10 +1,11 @@
 package com.vhbeltramini.grp.service.rest;
 
 import com.vhbeltramini.grp.model.User;
+import com.vhbeltramini.grp.model.enums.Role;
 import com.vhbeltramini.grp.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,12 +27,10 @@ public class UserController {
 
     @PostMapping("/login/users")
     public ResponseEntity<User> create(@RequestBody User user) throws NoSuchAlgorithmException {
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        String encodedPassword = passwordEncoder.encode(user.getPassword());
-//
-//        user.setPasswordHash(encodedPassword);
-//
-//        user.setRole(Role.CLIENT);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPasswordHash(encodedPassword);
+        user.setRole(Role.COORDENADOR);
         User sevedUser = repository.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
