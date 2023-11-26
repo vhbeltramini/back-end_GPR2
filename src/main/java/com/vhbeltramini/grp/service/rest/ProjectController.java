@@ -123,7 +123,8 @@ public class ProjectController {
 
         if (projeto != null && !projeto.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("projeto"), "%" + projeto + "%"));
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("projeto")), "%" + projeto.toLowerCase() + "%"));
         }
 
         if (exercicio != null) {
