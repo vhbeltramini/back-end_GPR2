@@ -24,7 +24,7 @@ public class ProjectItems {
 
     public ProjectItems() {}
 
-    public ProjectItems(Integer projectId, String nome, Float valorPrevisto, Float valorExecutado, Float valorSaldo) {
+    public ProjectItems(String nome, Float valorPrevisto, Float valorExecutado, Float valorSaldo) {
         super();
         this.projectId = projectId;
         this.nome = nome;

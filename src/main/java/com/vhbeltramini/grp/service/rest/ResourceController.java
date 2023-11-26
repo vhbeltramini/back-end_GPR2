@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class ResourceController {
     private ResourceRepository repository;
     public ResourceController(ResourceRepository repository, UserRepository userRepository, ProjectItemsRepository projectItemsRepository) {

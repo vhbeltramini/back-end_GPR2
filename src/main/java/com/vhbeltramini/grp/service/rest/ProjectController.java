@@ -23,6 +23,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @RestController
+@CrossOrigin
 public class ProjectController {
     private ProjectRepository repository;
     private UserRepository userRepository;
@@ -184,6 +185,9 @@ public class ProjectController {
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable(value = "id") Long id, @Valid @RequestBody Project project) throws Exception {
         project.setId(Math.toIntExact(id));
+
+        projectItemsRepository.saveAll(project.getItens());
+        resourceRepository.saveAll(project.getResources());
 
         final Project updatedUser = repository.save(project);
 

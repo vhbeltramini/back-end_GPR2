@@ -5,19 +5,18 @@ import com.vhbeltramini.grp.model.LoginResponse;
 import com.vhbeltramini.grp.model.User;
 import com.vhbeltramini.grp.repository.UserRepository;
 import com.vhbeltramini.grp.service.rest.utils.JwtTokenProvider;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class AuthController {
 
     private UserRepository userRepository;

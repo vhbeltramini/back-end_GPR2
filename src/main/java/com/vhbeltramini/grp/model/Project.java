@@ -16,7 +16,7 @@ public class Project {
     @Size(min=5, message="O nome do projeto deve ter pelo menos 5 caracteres")
     @NotBlank
     private String projeto;
-    @OneToOne
+    @ManyToOne
     private User coordenador;
     private Float valorPrevisto;
     private Float valorExecutado;

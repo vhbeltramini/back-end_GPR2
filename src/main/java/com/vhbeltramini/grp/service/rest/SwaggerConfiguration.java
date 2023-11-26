@@ -3,6 +3,7 @@ package com.vhbeltramini.grp.service.rest;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -14,6 +15,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.Collections;
 
 @Configuration
+@CrossOrigin
 public class SwaggerConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
