@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import java.util.logging.Logger;
 
 @RestController
 @CrossOrigin
@@ -71,14 +72,16 @@ public class ProjectController {
 
         if (coordenador != null && !coordenador.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) -> {
-                Join<Project, User> relatedEntityJoin = root.join("user", JoinType.INNER);
-                return criteriaBuilder.like(relatedEntityJoin.get("firstName"), "%" + coordenador + "%");
+
+                return criteriaBuilder.like(
+                        criteriaBuilder.lower(root.join("coordenador").get("fullName")), "%" + coordenador.toLowerCase() + "%");
             });
         }
 
         if (projeto != null && !projeto.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("projeto"), "%" + projeto + "%"));
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("projeto")), "%" + projeto.toLowerCase() + "%"));
         }
 
         if (exercicio != null) {
@@ -117,7 +120,7 @@ public class ProjectController {
         if (coordenador != null && !coordenador.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) -> {
                 Join<Project, User> relatedEntityJoin = root.join("user", JoinType.INNER);
-                return criteriaBuilder.like(relatedEntityJoin.get("firstName"), "%" + coordenador + "%");
+                return criteriaBuilder.like(relatedEntityJoin.get("fullName"), "%" + coordenador + "%");
             });
         }
 

@@ -35,6 +35,8 @@ public class User {
 
     private String passwordHash;
 
+    private String fullName;
+
     @Transient
     private String password;
 
@@ -50,6 +52,7 @@ public class User {
         this.cpf = cpf;
         this.email = email;
         this.role = role.toString();
+        setFullName(firstName, lastName);
         setPasswordHash(password);
     }
 
@@ -99,6 +102,10 @@ public class User {
 
     public String getPasswordHash() {
         return passwordHash;
+    }
+
+    public void setFullName(String firstName, String lastName){
+        this.fullName = firstName+ " " + lastName;
     }
 
     public void setPasswordHash(String passwordHash) {

@@ -30,6 +30,7 @@ public class UserController {
     public ResponseEntity<User> create(@RequestBody User user) throws NoSuchAlgorithmException {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setFullName(user.getFirstName(), user.getLastName());
         user.setPasswordHash(encodedPassword);
         user.setRole(Role.COORDENADOR);
         User sevedUser = repository.save(user);
