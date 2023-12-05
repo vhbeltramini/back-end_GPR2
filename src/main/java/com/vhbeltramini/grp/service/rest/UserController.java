@@ -75,6 +75,7 @@ public class UserController {
     public ResponseEntity<User> updateEmployee(@PathVariable(value = "id") Long id, @Valid @RequestBody User user) throws Exception {
 
         user.setId(Math.toIntExact(id));
+        user.setFullName(user.getFirstName(), user.getLastName());
 
         final User updatedUser = repository.save(user);
 

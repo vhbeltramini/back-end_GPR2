@@ -46,12 +46,14 @@ public class ResourceController {
 
         if (nome != null && !nome.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("nome"), "%" + nome + "%"));
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("nome")), "%" + nome.toLowerCase() + "%"));
         }
 
         if (descricao != null && !descricao.isEmpty()) {
             specification = specification.and((root, query, criteriaBuilder) ->
-                    criteriaBuilder.like(root.get("descricao"), "%" + descricao + "%"));
+                    criteriaBuilder.like(
+                            criteriaBuilder.lower(root.get("descricao")), "%" + descricao.toLowerCase() + "%"));
         }
 
         return ResponseEntity.ok(repository.findAll(specification));

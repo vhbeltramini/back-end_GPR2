@@ -162,4 +162,16 @@ public class Project {
     public void setResources(List<Resource> recursos) {
         this.resources = recursos;
     }
+
+    public void calculaSaldo() {
+        Float totalPrevisto = 0.0f;
+        Float totalExecutado = 0.0f;
+        for (ProjectItems item : this.itens) {
+            totalPrevisto += item.getValorPrevisto();
+            totalExecutado += item.getValorExecutado();
+        }
+        this.valorPrevisto = totalPrevisto;
+        this.valorExecutado = totalExecutado;
+        this.valorSaldo = totalPrevisto - totalExecutado;
+    }
 }

@@ -51,6 +51,7 @@ public class ProjectController {
             project.getResources().get(i).setId(resources.get(i).getId());
         }
         project.setSituacao(ProjectStatus.PENDENTE.toString());
+        project.calculaSaldo();
         
         Project sevedProject = repository.save(project);
 
@@ -189,6 +190,7 @@ public class ProjectController {
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable(value = "id") Long id, @Valid @RequestBody Project project) throws Exception {
         project.setId(Math.toIntExact(id));
+        project.calculaSaldo();
 
         projectItemsRepository.saveAll(project.getItens());
         resourceRepository.saveAll(project.getResources());
